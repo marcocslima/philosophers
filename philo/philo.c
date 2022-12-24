@@ -6,7 +6,7 @@
 /*   By: mcesar-d <mcesar-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 23:54:48 by mcesar-d          #+#    #+#             */
-/*   Updated: 2022/12/23 09:37:07 by mcesar-d         ###   ########.fr       */
+/*   Updated: 2022/12/24 10:00:09 by mcesar-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,13 @@ void	drop_fork(t_philo *philo, int flag)
 
 int	get_forks(t_philo *philo)
 {
+	if (philo->state == DEAD)
+	{
+		print_log(philo, DEAD);
+		return (ERROR);
+	}
 	if (philo->dbase->n_philos == 1)
-		return (1);
+		return (ERROR);
 	if (pthread_mutex_lock(&philo->dbase->forks[philo->id - 1]) == 0)
 	{
 		print_log(philo, LEFT_FORK);
@@ -44,7 +49,7 @@ int	get_forks(t_philo *philo)
 	}
 	if (philo->f_left + philo->f_right == 11)
 		if (verify_state(philo) == 1)
-			return (1);
+			return (ERROR);
 	return (0);
 }
 
@@ -69,17 +74,13 @@ void	*simulation(void *var)
 void	*control(void *var)
 {
 	t_philo	**philo;
-	int		i;
-	int		flag;
 	int		qphilos;
 
-	i = -1;
 	philo = var;
-	flag = 0;
 	qphilos = philo[0]->dbase->n_philos;
 	if (qphilos == 1)
 	{
-		printf("%lld %d died\n", get_time_now(), philo[0]->dbase->some_die + 1);
+		printf("%lld %d died\n",  philo[0]->dbase->t_death, philo[0]->dbase->some_die + 1);
 		return (NULL);
 	}
 	while (1)
@@ -88,7 +89,9 @@ void	*control(void *var)
 		{
 			if (philo[0]->dbase->all_eat == philo[0]->dbase->n_philos)
 				break ;
-			printf("%lld %d died\n", get_time_now(), philo[0]->dbase->some_die);
+			pthread_mutex_lock(&philo[0]->dbase->output);
+			print_log(philo[0], DEAD);
+			//printf("%lld %d died kkkk\n", philo[0]->dbase->t_death, philo[0]->dbase->some_die);
 			break ;
 		}
 	}
