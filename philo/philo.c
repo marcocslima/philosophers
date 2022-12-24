@@ -6,7 +6,7 @@
 /*   By: mcesar-d <mcesar-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 23:54:48 by mcesar-d          #+#    #+#             */
-/*   Updated: 2022/12/24 10:00:09 by mcesar-d         ###   ########.fr       */
+/*   Updated: 2022/12/24 14:44:39 by mcesar-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,7 @@ void	*control(void *var)
 		{
 			if (philo[0]->dbase->all_eat == philo[0]->dbase->n_philos)
 				break ;
-			pthread_mutex_lock(&philo[0]->dbase->output);
-			print_log(philo[0], DEAD);
-			//printf("%lld %d died kkkk\n", philo[0]->dbase->t_death, philo[0]->dbase->some_die);
+			printf("%lld %d died\n", philo[0]->dbase->t_death - philo[0]->dbase->t_die, philo[0]->dbase->some_die);
 			break ;
 		}
 	}

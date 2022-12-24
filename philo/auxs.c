@@ -6,7 +6,7 @@
 /*   By: mcesar-d <mcesar-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:07:44 by mcesar-d          #+#    #+#             */
-/*   Updated: 2022/12/24 00:32:01 by mcesar-d         ###   ########.fr       */
+/*   Updated: 2022/12/24 14:48:20 by mcesar-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,9 @@ void	exit_free(t_dbase *dbase, t_philo *philo)
 void	print_log(t_philo *philo, int state)
 {
 	long long	now;
-	long long	isdead;
 
 	pthread_mutex_lock(&philo->dbase->output);
-	isdead = get_time_now() - philo->last_eat;
-	if (philo->dbase->some_die == 0 && isdead < philo->dbase->t_die)
+	if (philo->dbase->some_die == 0)
 	{
 		now = get_time_now();
 		if ((state == LEFT_FORK || state == RIGHT_FORK)
