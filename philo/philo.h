@@ -6,7 +6,7 @@
 /*   By: mcesar-d <mcesar-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 05:32:14 by mcesar-d          #+#    #+#             */
-/*   Updated: 2022/12/23 23:33:51 by mcesar-d         ###   ########.fr       */
+/*   Updated: 2022/12/23 09:38:23 by mcesar-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,12 @@ typedef struct s_dbase
 	long long		t_die;
 	long long		t_eat;
 	long long		t_sleep;
-	long long		t_death;
 	int				n_eats;
 	int				all_eat;
 	long long		start;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*lock;
-	pthread_mutex_t	output;
-	pthread_mutex_t	sd;
+	pthread_mutex_t	*output;
 }	t_dbase;
 
 typedef struct s_philo
